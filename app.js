@@ -62,20 +62,6 @@ stage.addEventListener("touchend", (event) => {
   touchStart = null;
 }, { passive: true });
 
-document.getElementById("share").addEventListener("click", async (event) => {
-  const button = event.currentTarget;
-  try {
-    if (navigator.share) await navigator.share({ title: document.title, url: location.href });
-    else {
-      await navigator.clipboard.writeText(location.href);
-      button.textContent = "Odkaz zkopírován";
-      setTimeout(() => { button.textContent = "Sdílet odkaz"; }, 1800);
-    }
-  } catch (error) {
-    if (error?.name !== "AbortError") console.error(error);
-  }
-});
-
 const deepLink = location.hash.match(/^#medium-(\d+)$/)?.[1];
 if (deepLink) {
   const index = media.findIndex((item) => item.id === deepLink);
